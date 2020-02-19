@@ -10,14 +10,13 @@ exports.up = function (knex) {
         tbl.integer('vin')
             .notNullable()
 
-        tbl.integer('mileage')
+        tbl.decimal('mileage')
             .notNullable()
 
-        tbl.string('make', 128)
+        tbl.string('model', 128)
             .notNullable()
 
         tbl.string('trasmission_type', 128)
-
 
         tbl.string('title_status')
     })
