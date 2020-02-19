@@ -16,6 +16,22 @@ server.get('/cars', async (req, res, next) => {
     }
 })
 
+server.post('/cars', async (req, res, next) => {
+    try {
+        const { make, model, vin, mileage } = req.body
+        const [newCarID] = await db('cars')
+            .insert({ make, model, vin, mileage })
+
+        const newCar = await db('cars')
+            .select('*')
+            .where({ id: newCarID })
+
+        res.json(newCar)
+    } catch (e) {
+        next(e)
+    }
+})
+
 server.use((err, req, res, next) => {
     console.log(err)
     res.status(err.httpStatusCode || 500).json({
